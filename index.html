@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¿Vamos a ver Avatar 3?</title>
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+  <body>
+    <div class="background"></div>
+
+    <!-- partículas -->
+    <script>
+      for (let i = 0; i < 40; i++) {
+        const dot = document.createElement("div");
+        dot.className = "floating";
+        dot.style.left = Math.random() * 100 + "vw";
+        dot.style.animationDuration = 5 + Math.random() * 6 + "s";
+        document.body.appendChild(dot);
+      }
+    </script>
+
+    <div class="container">
+      <h1>💙 Mi Amor 💙</h1>
+      <p>
+        <br /><br />
+        ¿Te gustaría ir conmigo a ver <strong>Avatar 3</strong>?
+      </p>
+
+      <div class="buttons">
+        <button id="yes">Por supuesto, mi amor 💫</button>
+        <button id="no">No 🙃</button>
+      </div>
+
+      <!-- Popup personalizado -->
+      <div id="popup" class="popup" style="display: none">
+        <div class="popup-content">
+          <span id="closePopup" class="close-popup">&times;</span>
+          <p>💙no tenias otra opción pinche marrana jahdjash💙</p>
+
+          <hr />
+          <p>Dale a la ❌</p>
+        </div>
+      </div>
+
+      <div id="message" class="message">
+        🌌💙✨ Sabía que dirías que sí ✨💙🌌
+        <br />
+        No tenías otra opción, pinche marrana kjahsjah
+      </div>
+    </div>
+
+    <script>
+      const noBtn = document.getElementById("no");
+      const yesBtn = document.getElementById("yes");
+      const message = document.getElementById("message");
+
+
+      // --- LÓGICA DE MOVIMIENTO MEJORADA ---
+      let moveCount = 0;
+      function moveNoBtn() {
+        // 1. Obtener dimensiones de la ventana (Viewport)
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        // 2. Obtener dimensiones del botón para evitar que se salga
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
+
+        // 3. Calcular nueva posición aleatoria
+        // Restamos el tamaño del botón para asegurar que quede dentro
+        const randomX = Math.random() * (windowWidth - btnWidth);
+        const randomY = Math.random() * (windowHeight - btnHeight);
+
+        // 4. Aplicar estilos
+        noBtn.style.position = "fixed"; // Sacamos el botón del flujo normal
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
+
+        // 5. Efecto de reducción y desaparición tras varios movimientos
+        moveCount++;
+        noBtn.style.transform = `scale(${1 - moveCount * 0.18})`;
+        if (moveCount >= 5) {
+          noBtn.style.display = "none";
+          yesBtn.classList.add("shine");
+        }
+      }
+
+      // Eventos para Desktop y Móvil
+      noBtn.addEventListener("mouseover", moveNoBtn);
+      noBtn.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+        moveNoBtn();
+      });
+      noBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        moveNoBtn();
+      });
+
+      const popup = document.getElementById("popup");
+      const closePopup = document.getElementById("closePopup");
+      let whatsappUrl = "";
+
+      yesBtn.addEventListener("click", () => {
+        const mensaje = encodeURIComponent(
+          "¡Hola mi amor, mi dueño, mi hombre, mi vida, mi todo! Ya vi tu invitación para ver Avatar 3 y claro que quiero ir contigo"
+        );
+        whatsappUrl = `https://wa.me/3042225380?text=${mensaje}`;
+        popup.style.display = "flex";
+      });
+
+      closePopup.addEventListener("click", () => {
+        popup.style.display = "none";
+        if (whatsappUrl) {
+          window.open(whatsappUrl, "_blank");
+          whatsappUrl = "";
+        }
+      });
+    </script>
+  </body>
+</html>
