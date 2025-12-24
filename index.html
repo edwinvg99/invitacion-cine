@@ -36,7 +36,8 @@
       <div id="popup" class="popup" style="display: none">
         <div class="popup-content">
           <span id="closePopup" class="close-popup">&times;</span>
-          <p>💙no tenias otra opción pinche marrana jahdjash💙</p>
+          <p>💙 no tenias otra opción pinche marrana jahdjash 💙</p>
+          <img src="/public/cansada.jpg" alt="Cansada" style="margin-top:15px;max-width:320px;width:220px;height:auto;display:block;margin-left:auto;margin-right:auto;border-radius:12px;box-shadow:0 2px 10px #00f0ff44;" />
 
           <hr />
           <p>Dale a la ❌</p>
@@ -86,14 +87,12 @@
         }
       }
 
-      // Eventos para Desktop y Móvil
-      noBtn.addEventListener("mouseover", moveNoBtn);
-      noBtn.addEventListener("touchstart", function (e) {
-        e.preventDefault();
-        moveNoBtn();
-      });
-      noBtn.addEventListener("click", function (e) {
-        e.preventDefault();
+
+      // Unificar eventos para mouse y touch usando pointerdown (más robusto y moderno)
+      noBtn.addEventListener("pointerover", moveNoBtn);
+      noBtn.addEventListener("pointerdown", function (e) {
+        // Solo prevenir si es touch
+        if (e.pointerType === "touch") e.preventDefault();
         moveNoBtn();
       });
 
